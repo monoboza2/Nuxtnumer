@@ -1,6 +1,20 @@
 <template>
   <div>
     <div>
+      <b-form-checkbox
+        id="checkbox-1"
+        v-model="status"
+        name="checkbox-1"
+        value="true"
+        unchecked-value="false"
+      >
+        API
+      </b-form-checkbox>
+    </div>
+    <div v-if="status == 'true'">
+      <label for="f(x)">F(x):{{check}}</label>
+    </div>
+    <div v-else>
       <label for="f(x)">F(x):</label>
       <input v-model="fomular" id="f(x)" />
     </div>
@@ -16,7 +30,9 @@
     </div>
     <div>XL:{{ showXL }} XR:{{ showXR }} XM:{{ showXM }} ERROR:{{ showE }}</div>
     <div>
-      <button @click="Confirm">Confirm</button>
+      <!-- <pre>$bp: {{$bp}}</pre> -->
+      <!-- <button @click="Confirm">Confirm</button> -->
+       <b-button variant="success" @click="Confirm">Confirm</b-button>
     </div>
     <div>
       <h1>Chart</h1>
@@ -25,6 +41,8 @@
           :data="chartData"
           :options="chartOptions"
           class="line-chart"
+          ref="line"
+          chart-id="lineChart"
         />
       </div>
     </div>
@@ -37,7 +55,7 @@ import chart from './chart'
 export default {
   data() {
     return {
-      fomular: 'x^4-13',
+      fomular: '',
       XR: '2.0',
       XL: '1.5',
       showXR: '',
@@ -46,6 +64,11 @@ export default {
       showE: '',
       count: '',
       Error: '0.000001',
+      item: [],
+      check: '',
+      status: 'false',
+      articles:[],
+      token:'',
       chartData: {
         labels: [0],
         datasets: [
@@ -85,16 +108,32 @@ export default {
       },
     }
   },
-  mounted () {
-      this.Confirm()
-    },
+  //   mounted() {
+  //   const aw ={ $bp: this.$bp }
+  //   this.token=aw
+  //   console.log(aw.$bp)
+  // },
+  async created(){
+    const aw ={ $bp: this.$bp }
+    this.token=aw.$bp
+    const headers={ "Authorization": `Bearer ${this.token}`};
+    const response=await fetch('http://localhost:3004/Bisection',{headers})
+    const data= await response.json()
+    this.check=data[0].eq
+    console.log(data[0].eq)
+  },
   methods: {
+
     Confirm: function () {
 
+      console.log(this.articles)
+      try{
+        if(this.status==="true"){
+        this.fomular=this.check
+      }
       const Parser = require('expr-eval').Parser
       const parser = new Parser()
       let expr = parser.parse(this.fomular)
-
       function cal(a) {
         return expr.evaluate({ x: a })
       }
@@ -116,42 +155,52 @@ export default {
         y = Math.abs((xm - temp) / xm)
         console.log(c + ':' + y.toFixed(6))
         xm = (xl + xr) / 2
-
         this.chartData.labels[c] = c
         this.chartData.datasets[0].data[c] = y.toFixed(6)
         this.chartData.datasets[1].data[c] = xm.toFixed(6)
         this.chartData.datasets[2].data[c] = xr.toFixed(6)
         this.chartData.datasets[3].data[c] = xl.toFixed(6)
         c++
+        console.log('XM:' + xm.toFixed(6))
+        console.log('XR:' + xr.toFixed(6))
+        console.log('XL:' + xl.toFixed(6))
       }
-      console.log('XL:' + xl.toFixed(6))
-      console.log('XR:' + xr.toFixed(6))
-      console.log('XM:' + xm.toFixed(6))
+      // console.log('XL:' + xl.toFixed(6))
+      // console.log('XR:' + xr.toFixed(6))
+      // console.log('XM:' + xm.toFixed(6))
       this.showXL = xl.toFixed(6)
       this.showXR = xr.toFixed(6)
       this.showE = y.toFixed(6)
       this.showXM = xm.toFixed(6)
       return xm
+      }
+      catch (e) {
+        return 0
+      }
+
     },
   },
   components: {
     chart,
   },
-  watch: {
-    chartData: function() {
-        this.renderChart(this.chartData, this.options);
-    }
-  }
+
 }
 </script>
 
 <style>
+
 .line-chart {
   width: 60vw;
   height: 50vh;
 }
-.chart-div{
-  display:flex;
+.chart-div {
+  display: flex;
   justify-content: center;
+}
+</style>
+<style scoped>
+input{
+  border: 2px solid black;
+  border-radius: 4px;
 }
 </style>

@@ -1,69 +1,205 @@
 <template>
   <div>
-    <h1>Chart</h1>
-    <client-only>
-      <div class="chart-div">
-        <line-chart
-          :data="chartData"
-          :options="chartOptions"
-          class="line-chart"
-        />
-      </div>
-      <div>
-        <button @click="test">click</button>
-      </div>
-    </client-only>
+    <scatter
+      :data="chartData2"
+      :options="chartOptions"
+      class="scatter"
+      ref="scatter"
+    >
+    </scatter>
   </div>
 </template>
 
 <script>
-// import LineChart from '@/components/LineChart'
 export default {
   data() {
     return {
-      chartData: {
-        labels: [0],
+      chartData2: {
         datasets: [
           {
-            label: 'Error:',
-            borderColor: '#4bcc96',
-            borderWidth: 4,
+            label: 'Scatter Dataset 1',
             fill: false,
-            data: [0],
+            borderColor: '#f87979',
+            backgroundColor: '#f87979',
+            data: [
+              { x: -10, y: 0 },
+              {
+                x: 1.5,
+                y: 1,
+              },
+              {
+                x: 1.5,
+                y: 2,
+              },
+              {
+                x: 1.5,
+                y: 3,
+              },
+              {
+                x: 1.5,
+                y: 4,
+              },
+              {
+                x: 1.5,
+                y: 5,
+              },
+            ],
+          },
+          {
+            label: 'Scatter Dataset 2',
+            fill: false,
+            borderColor: '#7acbf9',
+            backgroundColor: '#7acbf9',
+            data: [
+              {
+                x: 10,
+                y: 0,
+              },
+              {
+                x: 2,
+                y: 1,
+              },
+              {
+                x: 1.75,
+                y: 2,
+              },
+              {
+                x: 1.625,
+                y: 3,
+              },
+              {
+                x: 1.53125,
+                y: 4,
+              },
+              {
+                x: 1.515625,
+                y: 5,
+              },
+            ],
+          },
+          {
+            label: 'Scatter Dataset 3',
+            fill: false,
+            borderColor: '#4bcc96',
+            backgroundColor: '#4bcc96',
+            data: [
+              {
+                x: 0,
+                y: 0,
+              },
+              {
+                x: 1.625,
+                y: 1,
+              },
+              {
+                x: 1.5625,
+                y: 2,
+              },
+              {
+                x: 1.515625,
+                y: 3,
+              },
+              {
+                x: 1.507813,
+                y: 4,
+              },
+            ],
           },
         ],
+        chartOptions: {
+          maintainAspectRatio: false,
+          responsive: true,
+        },
       },
-      chartOptions: {
-        maintainAspectRatio: false,
-        responsive: true,
-      },
-    }
-  },
-  methods: {
-    test(){
-      let i = 0
-      let c = 0
-      while(i<10){
-        this.chartData.labels[i]=c
-        this.chartData.datasets[0].data[i]=c
-        console.log(i)
-        console.log(c)
-        i++
-        c++
-      }
     }
   },
 }
 </script>
 
-<style>
-.line-chart {
-  width: 60vw;
-  height: 50vh;
-}
-</style>
-
-// data(){ // return{ // chartData:{ // labels:["x1","x2","x3","x4"], //
-datasets:[ // { // label: "Number", // borderColor:"#4bcc96", // borderWidth:4,
-// fill:false, // data:[100,150,300,400] // } // ] // }, // chartOptions:{ //
-maintainAspectRatio:false, // responsive:true, // } // } // },
+<style></style>
+<!-- datasets: [
+          {
+            label: 'Scatter Dataset 1',
+            fill: false,
+            borderColor: '#f87979',
+            backgroundColor: '#f87979',
+            data: [
+              {
+                x: 1.5,
+                y: 0,
+              },
+              {
+                x: 1.5,
+                y: 0,
+              },
+              {
+                x: 1.5,
+                y: 0,
+              },
+              {
+                x: 1.5,
+                y: 0,
+              },
+              {
+                x: 1.5,
+                y: 0,
+              },
+            ],
+          },
+          {
+            label: 'Scatter Dataset 2',
+            fill: false,
+            borderColor: '#7acbf9',
+            backgroundColor: '#7acbf9',
+            data: [
+              {
+                x: 2,
+                y: 0,
+              },
+              {
+                x: 1.75,
+                y: 0,
+              },
+              {
+                x: 1.625,
+                y: 0,
+              },
+              {
+                x: 1.53125,
+                y: 0,
+              },
+              {
+                x: 1.515625,
+                y: 0,
+              },
+            ],
+          },
+          {
+            label: 'Scatter Dataset 3',
+            fill: false,
+            borderColor: '#4bcc96',
+            backgroundColor: '#4bcc96',
+            data: [
+              {
+                x: 0,
+                y: 0,
+              },
+              {
+                x: 1.625,
+                y: 0,
+              },
+              {
+                x: 1.5625,
+                y: 0,
+              },
+              {
+                x: 1.515625,
+                y: 0,
+              },
+              {
+                x: 1.507813,
+                y: 0,
+              },
+            ],
+          },
+        ], -->

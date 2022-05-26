@@ -1,6 +1,20 @@
 <template>
   <div>
     <div>
+      <b-form-checkbox
+        id="checkbox-1"
+        v-model="status"
+        name="checkbox-1"
+        value="true"
+        unchecked-value="false"
+      >
+        API
+      </b-form-checkbox>
+    </div>
+    <div v-if="status == 'true'">
+      <label for="f(x)">F(x):{{ check }}</label>
+    </div>
+    <div v-else>
       <label for="f(x)">F(x):</label>
       <input v-model="fomular" id="f(x)" />
     </div>
@@ -14,11 +28,13 @@
       <label for="Error">ERROR:</label>
       <input value="Error" v-model="Error" id="Error" />
     </div>
-    <div>XL:{{ showXL }} XR:{{ showXR }} XLAST:{{ showXM }} ERROR:{{ showE }}</div>
     <div>
-      <button @click="Confirm">Confirm</button>
+      XL:{{ showXL }} XR:{{ showXR }} XLAST:{{ showXM }} ERROR:{{ showE }}
     </div>
-        <div>
+    <div>
+      <b-button variant="success" @click="Confirm">Confirm</b-button>
+    </div>
+    <div>
       <h1>Chart</h1>
       <div class="chart-div">
         <line-chart
@@ -37,7 +53,7 @@ import chart from './chart'
 export default {
   data() {
     return {
-      fomular: '43*x-1',
+      fomular: '',
       XR: '0.03',
       XL: '0.02',
       showXR: '',
@@ -46,7 +62,10 @@ export default {
       showE: '',
       count: '',
       Error: '0.000001',
-
+      item: '',
+      check: '',
+      token: '',
+      status: 'false',
       chartData: {
         labels: [0],
         datasets: [
@@ -86,8 +105,21 @@ export default {
       },
     }
   },
+  async created() {
+    const aw = { $bp: this.$bp }
+    this.token = aw.$bp
+    const headers = { Authorization: `Bearer ${this.token}` }
+    const response = await fetch('http://localhost:3004/False', { headers })
+    const data = await response.json()
+    this.check = data[0].eq
+    console.log(data[0].eq)
+  },
   methods: {
     Confirm: function () {
+      try{
+      if (this.status === 'true') {
+        this.fomular = this.check
+      }
       const Parser = require('expr-eval').Parser
       const parser = new Parser()
       let expr = parser.parse(this.fomular)
@@ -130,18 +162,24 @@ export default {
         this.showE = y.toFixed(6)
         this.showXM = x1.toFixed(6)
       }
-    },
+      }catch(e){}
+    }
   },
 }
 </script>
 
-<style>
+<style scoped>
 .line-chart {
   width: 60vw;
   height: 50vh;
 }
-.chart-div{
-  display:flex;
+.chart-div {
+  display: flex;
   justify-content: center;
+}
+
+input{
+  border: 2px solid black;
+  border-radius: 4px;
 }
 </style>

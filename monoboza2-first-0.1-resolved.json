@@ -1,0 +1,92 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "defaultTitle",
+    "description": "defaultDescription",
+    "version": "0.1"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3004"
+    }
+  ],
+  "paths": {
+    "/login": {
+      "post": {
+        "description": "Login to get TOKEN to use API",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/login_body"
+              },
+              "examples": {
+                "0": {
+                  "value": "{\"email\": \"s6204062616057@email.kmutnb.ac.th\",\"password\": \"123456789\"}"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "All Header data",
+            "content": {
+              "application/json; charset=utf-8": {
+                "examples": {
+                  "0": {
+                    "value": "{\"accessToken\":\"Token\"}"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "servers": [
+          {
+            "url": "http://localhost:3004"
+          }
+        ]
+      },
+      "servers": [
+        {
+          "url": "http://localhost:3004"
+        }
+      ]
+    },
+    "/Bisection": {
+      "get": {
+        "description": "Auto generated using Swagger Inspector",
+        "responses": {
+          "200": {
+            "description": "Auto generated using Swagger Inspector",
+            "content": {
+              "application/json; charset=utf-8": {
+                "examples": {
+                  "0": {
+                    "value": "{\"Bisection\":[{\"eq\":\"x^4*12\"}]}"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "login_body": {
+        "type": "object",
+        "properties": {
+          "password": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
