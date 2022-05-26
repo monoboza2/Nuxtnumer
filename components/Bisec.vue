@@ -28,7 +28,7 @@
       <label for="Error">ERROR:</label>
       <input value="Error" type="number" v-model="Error" id="Error" />
     </div>
-    <div>XL:{{ showXL }} XR:{{ showXR }} XM:{{ showXM }} ERROR:{{ showE }}</div>
+    <div><p>XL:{{ showXL }} XR:{{ showXR }} XM:{{ showXM }} ERROR:{{ showE }}</p></div>
     <div>
       <!-- <pre>$bp: {{$bp}}</pre> -->
       <!-- <button @click="Confirm">Confirm</button> -->
@@ -114,13 +114,17 @@ export default {
   //   console.log(aw.$bp)
   // },
   async created(){
-    const aw ={ $bp: this.$bp }
+    try{
+          const aw ={ $bp: this.$bp }
     this.token=aw.$bp
     const headers={ "Authorization": `Bearer ${this.token}`};
     const response=await fetch('http://localhost:3004/Bisection',{headers})
     const data= await response.json()
     this.check=data[0].eq
     console.log(data[0].eq)
+    }catch(e){
+
+    }
   },
   methods: {
 
