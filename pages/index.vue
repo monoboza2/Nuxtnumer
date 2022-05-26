@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div>
-      <h1>Nuxt_Numer</h1>
+      <h1 class="name">Nuxt_Numer</h1>
     </div>
     <b-button
       @click="submit"
