@@ -72,7 +72,7 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
-h1 {
+.name {
   color: rgb(0, 220, 130);
   font-size: 300px;
   font-family: 'Koulen', 'cursive';
