@@ -40,4 +40,4 @@ jobs:
             context: .
             file: ./Dockerfile
             push: true
-            tags: ${{ secrets.DOCKER_HUB_USERNAME }}/numerical_react:latest
+            tags: ${{ secrets.DOCKER_HUB_USERNAME }}/numer:latest
