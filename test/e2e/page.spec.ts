@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test'
+import { test, expect} from '@playwright/test'
 
 test('home', async ({ page}) => {
   await page.goto("http://localhost:3000/") // <-- Nuxt app is running and route '/' is showing.
@@ -9,7 +9,7 @@ test('home', async ({ page}) => {
 
 test('Bisection', async ({ page}) => {
   await page.goto("http://localhost:3000/Root/Bisection") // <-- Nuxt app is running and route '/' is showing.
-
+  // await page.fill("Input(fx)","x^4*12")
   await expect(page.locator('h1').locator('text=Chart')).toBeVisible()
 })
 test('False', async ({ page}) => {

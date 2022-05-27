@@ -106,8 +106,14 @@ export default {
     }
   },
   async created() {
-    const aw = { $bp: this.$bp }
-    this.token = aw.$bp
+    // const aw = { $bp: this.$bp }
+    // this.token = aw.$bp
+          const user = await this.$http.$post('http://localhost:3004/login', {
+        email: 's6204062616057@email.kmutnb.ac.th',
+        password: '123456789',
+      })
+      // console.log(user.accessToken)
+      this.token = user.accessToken
     const headers = { Authorization: `Bearer ${this.token}` }
     const response = await fetch('http://localhost:3004/False', { headers })
     const data = await response.json()

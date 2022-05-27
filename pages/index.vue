@@ -17,6 +17,7 @@
 <script>
 // import Scatter from '../components/chart.vue'
 export default {
+  name:"Main",
   layout: 'core',
   data() {
     return {
@@ -53,7 +54,7 @@ export default {
           password: this.password,
         })
         console.log(user.accessToken)
-        { $bp: user.accessToken }
+        token=user.accessToken
       } catch (e) {
         return 0
       }

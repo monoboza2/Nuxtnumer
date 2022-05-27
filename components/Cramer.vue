@@ -112,6 +112,16 @@ export default {
       return (this.MatrixA.Input = [])
     },
     set0_B() {
+       let temp1 = [1,2,4]
+       const A = [[4, 3, 4],[5, 2, 3],[5, 4, 6]]
+       const A1 = [[1, 3, 4],[2, 2, 3],[4, 4, 6]]
+       const A2 = [[4, 1, 4],[5, 2, 3],[5, 4, 6]]
+       const A3 = [[4, 3, 1],[5, 2, 2],[5, 4, 4]]
+       console.log(math.det(A))
+       console.log("x1:"+math.det(A1)/math.det(A))
+       console.log("x2:"+math.det(A2)/math.det(A))
+       console.log("x3:"+math.det(A3)/math.det(A))
+       let i=0
       return (this.MatrixB.Input = [])
     },
     cal() {
@@ -119,7 +129,9 @@ export default {
       var temp2 = [[]]
       var temp = []
       let beforelatex1 = JSON.stringify(this.MatrixA.Input)
+      console.log(beforelatex1)
       temp1 = [].concat(...this.MatrixB.Input)
+      //[[2],[2],[4]]=[2,2,4]
       temp2 = this.MatrixA.Input
       let check = math
         .parse(beforelatex1)
@@ -137,6 +149,7 @@ export default {
       // console.log(form)
 
       this.formula = form
+
       function cramersRule(matrix, freeTerms) {
         var det = detr(matrix)
         var returnArray = []
