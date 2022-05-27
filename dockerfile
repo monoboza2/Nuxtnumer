@@ -1,4 +1,3 @@
-
 FROM node:lts as builder
 
 RUN mkdir -p /usr/app
@@ -28,6 +27,25 @@ WORKDIR /usr/app
 COPY --from=builder /usr/app  .
 
 ENV HOST 0.0.0.0
-EXPOSE 80
+EXPOSE 3000
 
 CMD [ "npm", "start" ]
+
+# FROM node:16.13.1
+
+# RUN mkdir -p /usr/app
+# WORKDIR /usr/app
+
+# COPY package.json /usr/app
+# COPY package-lock.json /usr/app
+# # COPY yarn.lock .
+
+# RUN npm install
+# RUN npm run build
+
+# COPY . /usr/app
+
+# ENV HOST 0.0.0.0
+# EXPOSE 3000
+
+# CMD [ "npm","start" ]

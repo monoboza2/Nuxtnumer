@@ -79,7 +79,8 @@ export default {
   async created() {
     // const aw = { $bp: this.$bp }
     // this.token = aw.$bp
-          const user = await this.$http.$post('http://localhost:3004/login', {
+    try{
+      const user = await this.$http.$post('http://localhost:3004/login', {
         email: 's6204062616057@email.kmutnb.ac.th',
         password: '123456789',
       })
@@ -90,6 +91,9 @@ export default {
     const data = await response.json()
     this.check = data[0].eq
     console.log(data[0].eq)
+    }catch(e){
+
+    }
   },
   methods: {
     Confirm() {
