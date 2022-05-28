@@ -46,7 +46,7 @@ name: CI/CD pipeline Heroku
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   build-and-deploy-to-heroku :
